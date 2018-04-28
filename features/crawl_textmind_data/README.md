@@ -1,0 +1,1 @@
+# [请求文心系统](http://ccpl.psych.ac.cn/textmind/)获取文本特征

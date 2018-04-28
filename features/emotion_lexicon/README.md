@@ -1,0 +1,1 @@
+# [英文情感词汇](http://www.saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm)获取情感特征
