@@ -158,3 +158,12 @@ class user_predict:
         file_name = "tfidf_" + doc_name + ".npy"
         np.save(file_name, X_sp)
         print("*****************write done over *****************")
+
+
+if __name__ == '__main__':
+    base_dir = 'E:\Koo\Projects\PycharmProjects\TensorFlow_DNN_Character_Classification\data\essay_data'
+    user_predict = user_predict(os.path.join(base_dir, "vocab1_train.txt"),
+                                os.path.join(base_dir, "vocab1_test.txt"))
+
+    user_predict.train_lsi(user_predict.train_document,"train_vec_tfidf")
+    user_predict.train_lsi(user_predict.text_document,"test_vec_tfidf")
