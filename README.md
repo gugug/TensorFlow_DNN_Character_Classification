@@ -4,3 +4,7 @@
 建立 SVM 和深层神经网络的分类模型。
 
 [参考](https://github.com/SenticNet/personality-detection)
+
+version:
+python 3.6
+tensorflow 1.10
