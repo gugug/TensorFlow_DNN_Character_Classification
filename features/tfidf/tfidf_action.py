@@ -42,7 +42,7 @@ class user_predict:
         # 对应标签导入词典
         f = codecs.open(doc)
         temp = f.readlines()
-        print len(temp)
+        print(len(temp))
 
         for i in range(len(temp)):
             temp[i] = temp[i].split(" ")
@@ -52,8 +52,8 @@ class user_predict:
             query = " ".join(query).strip().replace("\n", "")
             list_total.append(query)
             list_gender.append(tags)
-        print list_total.__len__()
-        print list_gender.__len__()
+        print(list_total.__len__())
+        print(list_gender.__len__())
         list_tag = []
         for line in list_gender:
             list_t = []
@@ -61,7 +61,7 @@ class user_predict:
                 j = int(j)
                 list_t.append(j)
             list_tag.append(list_t)
-        print "data have read "
+        print("data have read ")
         return list_total, list_tag
 
     def load_stopword(self):
@@ -114,13 +114,13 @@ class user_predict:
         # 训练LSI模型 即将训练文档向量组成的矩阵SVD分解，并做一个秩为2的近似SVD分解
         lsi_model = models.LsiModel(corpus_tfidf, id2word=dictionary, num_topics=INPUT_SIZE)
         joblib.dump(dictionary, "tfidf_dictionary.dict")
-        print "训练集lsi -----"
+        print("训练集lsi -----")
         joblib.dump(lsi_model, "tfidf_lsi.model")
         return tfidf_model, dictionary
 
     def train_lsi(self, doc, str_doc):
         if not (os.path.exists("tfidf_model.model")):
-            print "prepare model"
+            print("prepare model")
             tfidf_model, dictionary = self.prepare_lsi(doc)
             list_total, list_tag = self.load_data(doc)
             stop_word = self.load_stopword()
@@ -128,7 +128,7 @@ class user_predict:
                      for document in list_total]
             corpus = [dictionary.doc2bow(text) for text in texts]
         else:
-            print "use model"
+            print("use model")
             # load train valid text
             tfidf_model = joblib.load("tfidf_model.model")
             dictionary = joblib.load("tfidf_dictionary.dict")
@@ -151,10 +151,10 @@ class user_predict:
             list_side.append(list_d)
         list_vec = mat(list_side)
         self.write_mat(list_vec, str_doc)
-        print "lsi 矩阵构建完成----------------"
+        print("lsi 矩阵构建完成----------------")
         return list_total, list_tag, list_side
 
     def write_mat(self, X_sp, doc_name):
         file_name = "tfidf_" + doc_name + ".npy"
         np.save(file_name, X_sp)
-        print "*****************write done over *****************"
+        print("*****************write done over *****************")

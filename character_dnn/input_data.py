@@ -6,10 +6,10 @@ import numpy as np
 
 
 def load_data_label(base_model_dir):
-    train_vec_filename = os.path.join(base_model_dir, "../train_vec.npy")
-    train_label_filename = os.path.join(base_model_dir, '../train_label.npy')
-    test_vec_filename = os.path.join(base_model_dir, '../test_vec.npy')
-    test_label_filename = os.path.join(base_model_dir, '../test_label.npy')
+    train_vec_filename = os.path.join(base_model_dir, "../data/vec/emotion_train_vec.npy")
+    train_label_filename = os.path.join(base_model_dir, '../data/label/train_label.npy')
+    test_vec_filename = os.path.join(base_model_dir, '../data/vec/emotion_test_vec.npy')
+    test_label_filename = os.path.join(base_model_dir, '../data/label/test_label.npy')
 
     X_train = np.load(train_vec_filename)
     print('X_train', X_train.shape)

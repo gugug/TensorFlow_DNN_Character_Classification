@@ -39,9 +39,9 @@ class D2vAction:
             # 一个用户作为一个文件去进行d2v的计算
             model_dm.train(X_doc, total_examples=model_dm.corpus_count, epochs=2)
             X_d2v = np.array([model_dm.docvecs[i] for i in range(len(list_total))])
-        print X_d2v.shape
+        print(X_d2v.shape)
         list_side = X_d2v  # doc2vec 矩阵
-        print " doc2vec 矩阵构建完成----------------"
+        print(" doc2vec 矩阵构建完成----------------")
         return list_total, list_tag, list_side
 
     def train_lsi_model(self, doc):
@@ -50,7 +50,7 @@ class D2vAction:
         model_dm = Doc2Vec(X_doc, dm=1, size=300, negative=5, hs=0, min_count=5, window=8, sample=1e-5, workers=4,
                            alpha=0.025, min_alpha=0.025)
         joblib.dump(model_dm, "model_d2v_dm.model")
-        print "d2w模型训练完成"
+        print("d2w模型训练完成")
         return model_dm
 
     def prepare_lsi(self, doc):
@@ -93,15 +93,15 @@ class D2vAction:
                 list_t.append(j)
             list_tag.append(list_t)
 
-        print "data have read "
+        print("data have read ")
         return list_total, list_tag
 
     def get_d2v_feature(self):
         train_list_total, train_list_tag, train_list_side = self.train_lsi(self.train_document)
-        print "train model done -------------------"
+        print("train model done -------------------")
 
         text_list_total, text_list_tag, text_list_side = self.train_lsi(self.text_document)
-        print "text model done  -------------------"
+        print("text model done  -------------------")
 
         TR = train_list_total.__len__()
         TE = text_list_total.__len__()
@@ -114,14 +114,14 @@ class D2vAction:
         X_train = train_list_side[:TR]
         y_train = train_list_tag[:TR]
         y_train = np.array(y_train)
-        print "train shape :---------------------"
-        print X_train.shape
+        print("train shape :---------------------")
+        print(X_train.shape)
 
         X_text = text_list_side[:TE]
         y_text = text_list_tag[:TE]
         y_text = np.array(y_text)
-        print "text shape :---------------------"
-        print X_text.shape
+        print("text shape :---------------------")
+        print(X_text.shape)
         print(train_list_side)
         print(train_list_tag)
         print(text_list_side)
@@ -137,7 +137,7 @@ class D2vAction:
         :return:
         """
         np.save(filename, X_sp)
-        print "*****************write done over *****************"
+        print("*****************write done over *****************")
 
 
 def load_data_label():
@@ -145,7 +145,7 @@ def load_data_label():
     加载训练数据
     :return:
     """
-    base_dir = ''
+    base_dir = 'E:\Koo\Projects\PycharmProjects\TensorFlow_DNN_Character_Classification\data\essay_data'
     base_model_dir = ''
     d2vAction = D2vAction(base_model_dir,
                           os.path.join(base_dir, "vocab1_train.txt"),
@@ -161,5 +161,5 @@ def load_data_label():
     d2vAction.write_d2v(str2_2, np.array(text_list_tag))
 
 
-# if __name__ == '__main__':
-#     load_data_label()
+if __name__ == '__main__':
+    load_data_label()

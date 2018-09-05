@@ -4,39 +4,38 @@
 爬取文心系统的数据，提取特征
 """
 
-import urllib2
-import urllib
-import cookielib
+import http.cookiejar
 import json
-
+import urllib.request
+import urllib.parse
 import numpy as np
 
-import input_textmind_data
+from features.crawl_textmind_data import input_textmind_data
 
 headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:35.0) Gecko/20100101 Firefox/35.0'}
 
 
 class Crawler:
     def __init__(self):
-        self.cj = cookielib.LWPCookieJar()
+        self.cj = http.cookiejar.LWPCookieJar()
         # 将一个保存cookie对象，和一个HTTP的cookie的处理器绑定
-        self.cookie_processor = urllib2.HTTPCookieProcessor(self.cj)
+        self.cookie_processor = urllib.request.HTTPCookieProcessor(self.cj)
         # 创建一个opener，将保存了cookie的http处理器，还有设置一个handler用于处理http的URL的打开
-        self.opener = urllib2.build_opener(self.cookie_processor,
-                                           urllib2.HTTPHandler)  # 将包含了cookie、http处理器、http的handler的资源和urllib2对象绑定在一起
-        urllib2.install_opener(self.opener)
+        self.opener = urllib.request.build_opener(self.cookie_processor,
+                                                  urllib.request.HTTPHandler)  # 将包含了cookie、http处理器、http的handler的资源和urllib2对象绑定在一起
+        urllib.request.install_opener(self.opener)
 
     def doPost(self, text):
-        print "正在请求文心..."
+        print("正在请求文心...")
         PostData = {
             "str": text
         }
-        PostData = urllib.urlencode(PostData)
-        request = urllib2.Request('http://ccpl.psych.ac.cn/textmind/analysis', PostData, headers)
-        response = urllib2.urlopen(request)
-        text = response.read()
-        print text
-        return text
+        PostData = urllib.parse.urlencode(PostData).encode("utf-8")
+        request = urllib.request.Request('http://ccpl.psych.ac.cn/textmind/analysis', headers=headers)
+        with urllib.request.urlopen(request, data=PostData) as f:
+            resp = f.read()
+            print(resp)
+            return resp
 
     def parse_textmind_feature(self, json_str):
         feature_list = []
@@ -57,7 +56,7 @@ class Crawler:
         特征向量保存
         """
         np.save(filename, X_sp)
-        print "*****************write done over *****************"
+        print("*****************write done over *****************")
 
     def textmind_action(self, train_lines, test_lines):
         """
@@ -92,6 +91,7 @@ class Crawler:
             user_name = temp[0]
             tags = temp[1:6]
             query = temp[6:]
+            print(query)
             query = " ".join(query).strip().replace("\n", "")
             json_str = self.doPost(query)
             feature_list = self.parse_textmind_feature(json_str)

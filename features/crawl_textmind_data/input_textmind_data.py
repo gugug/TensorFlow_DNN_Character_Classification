@@ -14,7 +14,7 @@ def load_corpus():
     加载训练数据
     :return:
     """
-    base_dir = '/data/essay_data'
+    base_dir = 'E:\Koo\Projects\PycharmProjects\TensorFlow_DNN_Character_Classification\data\essay_data'
 
     train_txt_path = os.path.join(base_dir, "vocab1_train.txt")
     test_txt_path = os.path.join(base_dir, "vocab1_test.txt")
@@ -23,7 +23,7 @@ def load_corpus():
 
 
 def read_lines(train_txt_path):
-    with gfile.Open(train_txt_path, 'rb') as f:
+    with gfile.Open(train_txt_path, 'r') as f:
         lines = f.readlines()
         for line in lines:
             print(line)

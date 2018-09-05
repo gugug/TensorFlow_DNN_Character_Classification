@@ -102,11 +102,11 @@ if __name__ == "__main__":
     base_dir = '/data/essays_data'
 
     data_folder = os.path.join(base_dir, 'essays.csv')
-    print "loading data...",
+    print("loading data...")
     revs, vocab = build_data_cv(data_folder, cv=10, clean_string=True)
     num_words = pd.DataFrame(revs)["num_words"]
     max_l = np.max(num_words)
-    print "data loaded!"
-    print "number of status: " + str(len(revs))
-    print "vocab size: " + str(len(vocab))
-    print "max sentence length: " + str(max_l)
+    print("data loaded!")
+    print("number of status: " + str(len(revs)))
+    print("vocab size: " + str(len(vocab)))
+    print("max sentence length: " + str(max_l))

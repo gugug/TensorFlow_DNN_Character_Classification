@@ -95,7 +95,7 @@ class SVMCharacterPredict:
         X_train, Y_train, X_test, Y_test = input_textmind_data.load_textmind_data_label_with_normalization(
             '../crawl_textmind_data')
         mymean, pred_y = self.train_eval(X_train, Y_train, X_test, Y_test)
-        print "textmind+支持向量机　准确率平均值为: " + str(mymean)
+        print("textmind+支持向量机　准确率平均值为: " + str(mymean))
         # LOG.info("textmind+支持向量机　准确率平均值为: " + str(mymean))
 
         acc_list = self.get_acc(Y_test, pred_y)
@@ -141,7 +141,7 @@ class SVMCharacterPredict:
         X_train, Y_train, X_test, Y_test = self.load_arr(test_label_filename, test_vec_filename, train_label_filename,
                                                          train_vec_filename)
         mymean, pred_y = self.train_eval(X_train, Y_train, X_test, Y_test)
-        print "d2v_dbow+支持向量机　准确率平均值为: " + str(mymean)
+        print("d2v_dbow+支持向量机　准确率平均值为: " + str(mymean))
         # LOG.info("d2v_dbow+支持向量机　准确率平均值为: " + str(mymean))
 
         acc_list = self.get_acc(Y_test, pred_y)
@@ -170,7 +170,7 @@ class SVMCharacterPredict:
         X_train, Y_train, X_test, Y_test = self.load_arr(test_label_filename, test_vec_filename, train_label_filename,
                                                          train_vec_filename)
         mymean, pred_y = self.train_eval(X_train, Y_train, X_test, Y_test)
-        print "tfidf+支持向量机　准确率平均值为: " + str(mymean)
+        print("tfidf+支持向量机　准确率平均值为: " + str(mymean))
         # LOG.info("tfidf + 停用词 +支持向量机　准确率平均值为: " + str(mymean))
 
         acc_list = self.get_acc(Y_test, pred_y)
@@ -199,7 +199,7 @@ class SVMCharacterPredict:
         X_train, Y_train, X_test, Y_test = self.load_arr(test_label_filename, test_vec_filename, train_label_filename,
                                                          train_vec_filename)
         mymean, pred_y = self.train_eval(X_train, Y_train, X_test, Y_test)
-        print "tfidf+stopword+支持向量机　准确率平均值为: " + str(mymean)
+        print("tfidf+stopword+支持向量机　准确率平均值为: " + str(mymean))
         # LOG.info("tfidf+支持向量机　准确率平均值为: " + str(mymean))
 
         acc_list = self.get_acc(Y_test, pred_y)
@@ -284,7 +284,7 @@ class SVMCharacterPredict:
         X1_train, Y1_train, X1_test, Y1_test = fun2
         train_list_side, text_list_side = input_data.load_data_label_combine(X_train, X_test, X1_train, X1_test)
         mymean, pred_y = self.train_eval(train_list_side, Y_train, text_list_side, Y_test)
-        print "综合特征+支持向量机　准确率平均值为: " + str(mymean)
+        print("综合特征+支持向量机　准确率平均值为: " + str(mymean))
         LOG.info(fun1name + " + " + fun2name + " 综合特征+支持向量机　准确率平均值为: " + str(mymean))
 
         acc_list = self.get_acc(Y_test, pred_y)
@@ -298,7 +298,7 @@ class SVMCharacterPredict:
         print("==========================================")
 
     def predict_by_combine_three(self):
-        from character import input_data
+        from character_dnn import input_data
 
         X_train, Y_train, X_test, Y_test = self.predict_by_tfidf()
         X1_train, Y1_train, X1_test, Y1_test = self.predict_by_d2v_dbow()
@@ -392,12 +392,12 @@ if __name__ == '__main__':
         LOG.info("=========开始第" + str(_ + 1) + "轮训练组合===========")
         # fun2 = user_predict.predict_by_textmind()
         # fun3 = user_predict.predict_by_d2v_dbow()
-        # fun5 = user_predict.predict_by_tfidf()
+        fun5 = user_predict.predict_by_tfidf()
         # user_predict.predict_by_tfidf_stopword()
-        f2name = 'textmind'
-        f3name = 'dbow'
-        f5name = 'tfidf'
+        # f2name = 'textmind'
+        # f3name = 'dbow'
+        # f5name = 'tfidf'
         # user_predict.predict_by_combine_two(fun2, fun3, f2name, f3name)
         # user_predict.predict_by_combine_two(fun2, fun5, f2name, f5name)
         # user_predict.predict_by_combine_two(fun3, fun5, f3name, f5name)
-        user_predict.predict_by_combine()
+        # user_predict.predict_by_combine()

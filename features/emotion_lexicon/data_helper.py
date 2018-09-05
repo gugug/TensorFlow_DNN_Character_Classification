@@ -77,7 +77,7 @@ def load_data_label():
     """
     base_dir = ''
     data_folder = os.path.join(base_dir, 'Emotion_Lexicon.csv')
-    print "loading data...",
+    print("loading data...")
     emotion_dict = build_emotion_lexicon_dict(data_folder)
     X_train, y_train = build_emotion_feature('../data/essay_data/vocab1_train.txt', emotion_dict)
     X_test, y_test = build_emotion_feature('../data/essay_data/vocab1_test.txt', emotion_dict)

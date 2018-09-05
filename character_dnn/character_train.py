@@ -4,9 +4,9 @@
 """
 
 import tensorflow as tf
-import character_inference
+from character_dnn import character_inference
 import os
-import input_data
+from character_dnn import input_data
 
 # 1. 定义神经网络结构相关的参数。
 BATCH_SIZE = 50  # 一个训练batch中的训练数据个数，数字越小，训练过程越接近随机梯度下降
@@ -47,7 +47,7 @@ def train():
     sigmoid_cross_entropy_with_logits  应用于多标签或者二分类
     """
     # 多目标损失函数
-    cross_entropy = tf.nn.sigmoid_cross_entropy_with_logits(logits=y, targets=y_)
+    cross_entropy = tf.nn.sigmoid_cross_entropy_with_logits(logits=y, labels=y_)
     cross_entropy_mean = tf.reduce_mean(cross_entropy)
     # 总损失等于交叉熵损失和正则化损失的和
     loss = cross_entropy_mean + tf.add_n(tf.get_collection('losses'))
@@ -81,6 +81,8 @@ def train():
             #                                           y_: train_list_tag[start:end]})
 
             # 每次选取all_size样本进行训练
+            print(train_list_side.shape)
+            print(train_list_tag.shape)
             _, loss_value, step = sess.run([train_op, loss, global_step],
                                            feed_dict={x: train_list_side,
                                                       y_: train_list_tag})

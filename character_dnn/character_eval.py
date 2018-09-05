@@ -4,14 +4,16 @@
 """
 __author__ = 'gu'
 
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import time
 import tensorflow as tf
-import character_inference
+from character_dnn import character_inference
 import numpy as np
-import input_data
+from character_dnn import input_data
 
 MOVING_AVERAGE_DECAY = 0.99  # 活动平均衰减率
-MODEL_SAVE_PATH = "character_model/dbow+tfidf/"
+MODEL_SAVE_PATH = "model/"
 MODEL_NAME = "character_model"
 print(MODEL_SAVE_PATH)
 # 加载的时间间隔。
