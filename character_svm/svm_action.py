@@ -132,18 +132,18 @@ class SVMCharacterPredict:
         d2v_dbow 训练
         :return:
         """
-        base_model_dir = ''
-        train_vec_filename = os.path.join(base_model_dir, "doc2vec_train_vec_dbow.npy")
-        train_label_filename = os.path.join(base_model_dir, 'doc2vec_train_label_dm.npy')
-        test_vec_filename = os.path.join(base_model_dir, 'doc2vec_test_vec_dbow.npy')
-        test_label_filename = os.path.join(base_model_dir, 'doc2vec_test_label_dm.npy')
+        base_model_dir = 'E:\\Koo\\Projects\\PycharmProjects\\TensorFlow_DNN_Character_Classification\\features\\doc2vec'
+        train_vec_filename = os.path.join(base_model_dir, "doc2vec_train_vec_dm.npy")
+        train_label_filename = os.path.join(base_model_dir, 'train_label.npy')
+        test_vec_filename = os.path.join(base_model_dir, 'doc2vec_test_vec_dm.npy')
+        test_label_filename = os.path.join(base_model_dir, 'test_label.npy')
 
         X_train, Y_train, X_test, Y_test = self.load_arr(test_label_filename, test_vec_filename, train_label_filename,
                                                          train_vec_filename)
         mymean, pred_y = self.train_eval(X_train, Y_train, X_test, Y_test)
         print("d2v_dbow+支持向量机　准确率平均值为: " + str(mymean))
         # LOG.info("d2v_dbow+支持向量机　准确率平均值为: " + str(mymean))
-
+        print(pred_y.shape)
         acc_list = self.get_acc(Y_test, pred_y)
         print("After training step(s), 5 validation accuracy = %s" % acc_list)
         precision_list = self.get_precision(Y_test, pred_y)
@@ -161,11 +161,11 @@ class SVMCharacterPredict:
         tfidf 训练
         :return:
         """
-        base_model_dir = ''
+        base_model_dir = 'E:\\Koo\Projects\\PycharmProjects\\TensorFlow_DNN_Character_Classification\\features\\tfidf'
         train_vec_filename = os.path.join(base_model_dir, "tfidf_train_vec_tfidf.npy")
-        train_label_filename = os.path.join(base_model_dir, 'doc2vec_train_label_dm.npy')
+        train_label_filename = os.path.join(base_model_dir, 'train_label.npy')
         test_vec_filename = os.path.join(base_model_dir, 'tfidf_test_vec_tfidf.npy')
-        test_label_filename = os.path.join(base_model_dir, 'doc2vec_test_label_dm.npy')
+        test_label_filename = os.path.join(base_model_dir, 'test_label.npy')
 
         X_train, Y_train, X_test, Y_test = self.load_arr(test_label_filename, test_vec_filename, train_label_filename,
                                                          train_vec_filename)
@@ -173,6 +173,8 @@ class SVMCharacterPredict:
         print("tfidf+支持向量机　准确率平均值为: " + str(mymean))
         # LOG.info("tfidf + 停用词 +支持向量机　准确率平均值为: " + str(mymean))
 
+        print(Y_test.shape)
+        print(pred_y.shape)
         acc_list = self.get_acc(Y_test, pred_y)
         print("After training step(s), 5 validation accuracy = %s" % acc_list)
         precision_list = self.get_precision(Y_test, pred_y)
@@ -391,8 +393,8 @@ if __name__ == '__main__':
     for _ in range(10):
         LOG.info("=========开始第" + str(_ + 1) + "轮训练组合===========")
         # fun2 = user_predict.predict_by_textmind()
-        # fun3 = user_predict.predict_by_d2v_dbow()
-        fun5 = user_predict.predict_by_tfidf()
+        fun3 = user_predict.predict_by_d2v_dbow()
+        # fun5 = user_predict.predict_by_tfidf()
         # user_predict.predict_by_tfidf_stopword()
         # f2name = 'textmind'
         # f3name = 'dbow'
